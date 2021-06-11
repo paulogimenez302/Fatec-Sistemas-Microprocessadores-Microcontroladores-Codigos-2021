@@ -1,0 +1,14 @@
+void setup() {
+  pinMode(14, OUTPUT);
+  digitalWrite(14, HIGH);
+  //Espera 2 segundos
+  delay(2000);
+  //colocar nivel baixo no pino D5
+  digitalWrite(14, LOW);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
