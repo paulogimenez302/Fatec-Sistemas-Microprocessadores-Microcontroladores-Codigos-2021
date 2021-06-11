@@ -1,0 +1,548 @@
+[
+    {
+        "id": "ca7ab1a0.f0aba",
+        "type": "tab",
+        "label": "Back and Node Red",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6c388d7e.aa5c44",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "/ola",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 220,
+        "wires": [
+            [
+                "17e28147.bfc40f"
+            ]
+        ]
+    },
+    {
+        "id": "ca3f59bc.5196e8",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 320,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "17e28147.bfc40f",
+        "type": "template",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n\"mensagem\":\"ola\"\n}",
+        "output": "str",
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "ca3f59bc.5196e8"
+            ]
+        ]
+    },
+    {
+        "id": "9f1c8c25.b9e91",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "/ola-nome",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 420,
+        "wires": [
+            [
+                "57712ed2.4550e"
+            ]
+        ]
+    },
+    {
+        "id": "57712ed2.4550e",
+        "type": "function",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "func": "msg.payload = {\n    \"nome-enviado\":msg.req.query.nome,\n    \"tamanho\":msg.req.query.nome.length\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "9d6c809e.9b392"
+            ]
+        ]
+    },
+    {
+        "id": "9d6c809e.9b392",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 580,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a975e7dc.8f01d8",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "/calculadora",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 520,
+        "wires": [
+            [
+                "b86ef9.94f27108"
+            ]
+        ]
+    },
+    {
+        "id": "b86ef9.94f27108",
+        "type": "function",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "func": "var num1 = parseInt(msg.req.query.n1, 10); //Converte String para Int\nvar num2 = parseInt(msg.req.query.n2, 10);\nvar resultado = num1+num2;\nmsg.payload = {\n    \"num1\":num1,\n    \"num2\":num2,\n    \"operacao\":\"+\",\n    \"resultado\":resultado\n};\nmsg.statusCode = 200;\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 520,
+        "wires": [
+            [
+                "e1179481.b4b1b8"
+            ]
+        ]
+    },
+    {
+        "id": "e1179481.b4b1b8",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 260,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "223b28fa.4919f8",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "/calculadora-basica",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 780,
+        "wires": [
+            [
+                "37ea304d.0e0bb"
+            ]
+        ]
+    },
+    {
+        "id": "37ea304d.0e0bb",
+        "type": "function",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "func": "var num1 = parseInt(msg.req.query.n1, 10); //Converte String para Int\nvar num2 = parseInt(msg.req.query.n2, 10);\nvar operacao = msg.req.query.operacao;\nvar resultado;\nif (operacao == \"plus\")\n    resultado = num1+num2;\nelse if(operacao == \"-\")\n    resultado = num1-num2;\nelse if(operacao == \"*\")\n    resultado = num1*num2;\nelse if(operacao == \"/\")\n    resultado = num1/num2;\nmsg.payload = {\n    \"num1\":num1,\n    \"num2\":num2,\n    \"operacao\":operacao,\n    \"resultado\":resultado\n};\nmsg.statusCode = 200;\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 740,
+        "wires": [
+            [
+                "7e61e08.f7a7a2"
+            ]
+        ]
+    },
+    {
+        "id": "7e61e08.f7a7a2",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 310,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "7aa06f04.1bf52",
+        "type": "ui_switch",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "label": "switch",
+        "tooltip": "",
+        "group": "5451a817.2cd6b8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "x": 90,
+        "y": 980,
+        "wires": [
+            [
+                "76dcce58.ec7d8"
+            ]
+        ]
+    },
+    {
+        "id": "b9402c63.d7312",
+        "type": "ui_slider",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "5451a817.2cd6b8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "end",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "255",
+        "step": 1,
+        "x": 90,
+        "y": 1060,
+        "wires": [
+            [
+                "4240350f.94733c"
+            ]
+        ]
+    },
+    {
+        "id": "6cfc5e4f.bbd3a",
+        "type": "ui_gauge",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "group": "5e07a77.9f73c58",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 470,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "76dcce58.ec7d8",
+        "type": "change",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "switch",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4240350f.94733c",
+        "type": "change",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "slider",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7127cad9.b2b544",
+        "type": "change",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "slider",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "switch",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "gauge",
+                "pt": "flow",
+                "to": "5",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "504f98c6.302818",
+        "type": "trigger",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "op1": "gauge",
+        "op2": "0",
+        "op1type": "flow",
+        "op2type": "str",
+        "duration": "-300",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 300,
+        "y": 1140,
+        "wires": [
+            [
+                "6cfc5e4f.bbd3a"
+            ]
+        ]
+    },
+    {
+        "id": "4546c19e.d69f8",
+        "type": "inject",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 1220,
+        "wires": [
+            [
+                "7127cad9.b2b544",
+                "504f98c6.302818"
+            ]
+        ]
+    },
+    {
+        "id": "4fffc462.cb41fc",
+        "type": "function",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "func": "msg.payload = {\n    \"slider\":flow.get(\"slider\"),\n    \"gauge\":flow.get(\"gauge\"),\n    \"switch\":flow.get(\"switch\")\n};\nmsg.statusCode = 200;\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 1380,
+        "wires": [
+            [
+                "3af8f999.d307b6"
+            ]
+        ]
+    },
+    {
+        "id": "3121dd73.cee402",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "get-status",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 1380,
+        "wires": [
+            [
+                "4fffc462.cb41fc"
+            ]
+        ]
+    },
+    {
+        "id": "3af8f999.d307b6",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "a743ac0a.0e028",
+        "type": "http in",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "url": "/atualiza-gauge",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 1580,
+        "wires": [
+            [
+                "41c2fe86.6dff4"
+            ]
+        ]
+    },
+    {
+        "id": "36a5d9f.bab5626",
+        "type": "http response",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 390,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "41c2fe86.6dff4",
+        "type": "function",
+        "z": "ca7ab1a0.f0aba",
+        "name": "",
+        "func": "var novo gauge = msg.payload.value;\nflow.set(\"gauge\",novo valor);\nmsg.payload = {\n    \"slider\":flow.get(\"slider\"),\n    \"gauge\":flow.get(\"gauge\"),\n    \"switch\":flow.get(\"switch\")\n};\nmsg.statusCode = 200;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 4,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 1700,
+        "wires": [
+            [
+                "36a5d9f.bab5626"
+            ]
+        ]
+    },
+    {
+        "id": "5451a817.2cd6b8",
+        "type": "ui_group",
+        "name": "Entrada",
+        "tab": "a4e83793.aa4c68",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "5e07a77.9f73c58",
+        "type": "ui_group",
+        "name": "Saida",
+        "tab": "a4e83793.aa4c68",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a4e83793.aa4c68",
+        "type": "ui_tab",
+        "name": "Servidor HTTP",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
